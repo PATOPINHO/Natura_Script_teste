@@ -96,4 +96,4 @@ node natura_multi.js
 ## 🧑‍💻 Autor
 
 Desenvolvido por Senhor Destino  
-Contato: http://t.me/senhordestinoofc
+Contato: https://t.me/senhordestinoofc
