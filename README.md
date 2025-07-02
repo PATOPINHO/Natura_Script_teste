@@ -71,7 +71,7 @@ node natura_multi.js
 ## 📦 Exemplo de saída
 
 ```
-✅ rafael@email.com | Nome: Rafael Silva | Saldo: R$ 120,00 | Endereço: Rua das Flores, 123
+✅ macaco@email.com | Nome: Thomas Turbano | Saldo: R$ 120,00 | Endereço: Rua das Flores, 123
 ❌ 123.456.789-00 | Falha no login
 ⚠️ usuario@email.com | Erro: Navigation timeout
 ```
