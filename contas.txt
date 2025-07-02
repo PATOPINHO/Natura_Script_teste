@@ -1,0 +1,2 @@
+usuario@email.com:senha123
+123.456.789-00:senha321
