@@ -1,4 +1,4 @@
-# 🧪 Bot de Login e Extração - Natura (com Puppeteer + Brave)
+# 🧪 Script de Login e Extração - Natura (com Puppeteer + Brave)
 
 Este projeto automatiza o login no portal de consultoria da [Natura](https://login.natura.net/ssoauth), simulando um usuário real com o navegador Brave e extraindo dados como **nome**, **saldo** e **endereço** da conta.
 
@@ -95,5 +95,5 @@ node natura_multi.js
 
 ## 🧑‍💻 Autor
 
-Desenvolvido por Rafael  
-Contato: invasaohackerhi@gmail.com
+Desenvolvido por Senhor Destino  
+Contato: t.me/senhordestinoofc
