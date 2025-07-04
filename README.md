@@ -1,99 +1,115 @@
-# 🧪 Script de Login e Extração - Natura (com Puppeteer + Brave)
 
-Este projeto automatiza o login no portal de consultoria da [Natura](https://login.natura.net/ssoauth), simulando um usuário real com o navegador Brave e extraindo dados como **nome**, **saldo** e **endereço** da conta.
+# 🌐 Natura Login Automation
 
----
-
-## ✅ Funcionalidades
-
-- Login automatizado por Puppeteer com Stealth Plugin
-- Emulação de Android e ações humanas (movimento de mouse)
-- Leitura de múltiplas contas a partir de `contas.txt`
-- Geração automática de `resultados.txt` com os dados coletados
-- Compatível com Brave Browser (alta taxa de bypass de bot detection)
+Automação para login em massa no portal [consultoria.natura.com.br](https://consultoria.natura.com.br), utilizando **Playwright** com suporte a:
+- Captura dinâmica dos tokens de sessão
+- Preenchimento automático de login e senha
+- Execução via navegador Chrome real com CDP
+- Logs detalhados no terminal
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📋 Pré-requisitos
+
+✅ [Node.js](https://nodejs.org) >= 18  
+✅ [Google Chrome](https://www.google.com/chrome/) instalado  
+✅ Dependências Node instaladas no projeto  
+✅ Lista de contas no formato `login:senha`
+
+---
+
+## 🗂 Estrutura do projeto
 
 ```
-natura_bot/
-├── contas.txt           # Contas no formato email:senha ou cpf:senha
-├── resultados.txt       # Saída dos resultados da automação
-├── natura_multi.js      # Script principal com Puppeteer + Brave
-└── install.bat          # Script automático para instalar dependências
-```
-
----
-
-## 🔧 Requisitos
-
-- **Node.js** (v16+): [https://nodejs.org](https://nodejs.org)
-- **Brave Browser** instalado no caminho padrão:
-  ```
-  C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe
-  ```
-
-> ⚠️ Se o Brave estiver em outro local, edite o caminho no arquivo `natura_multi.js`, linha:
-
-```js
-executablePath: 'C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe'
+.
+├── contas.txt              # Contas para login (uma por linha, login:senha)
+├── natura_multi.js         # Script principal com Playwright
+├── start_chrome.bat        # Atalho para iniciar o Chrome com CDP
+├── README.md               # Este arquivo
 ```
 
 ---
 
 ## 🚀 Como usar
 
-1. **Clone o repositório ou baixe o `.zip`**
-2. Coloque suas credenciais no arquivo `contas.txt`, no formato:
+### 1️⃣ Instale as dependências
 
-```
-email1@exemplo.com:senha123
-123.456.789-00:minhasenha
-```
-
-3. Execute o instalador automático:
+Execute dentro do diretório do projeto:
 
 ```bash
-install.bat
+npm install playwright
 ```
 
-4. Após instalar, rode o script:
+---
+
+### 2️⃣ Abra o Chrome em modo depuração
+
+Execute o `.bat` incluído no projeto para abrir o Chrome com suporte a CDP:
+
+```bat
+start_chrome.bat
+```
+
+Esse comando abrirá o Chrome com o parâmetro `--remote-debugging-port=9222`.  
+**Mantenha essa janela do Chrome aberta enquanto o script estiver rodando.**
+
+Você pode verificar se está ativo acessando no navegador:  
+👉 [http://127.0.0.1:9222/json](http://127.0.0.1:9222/json)
+
+---
+
+### 3️⃣ Prepare o arquivo `contas.txt`
+
+Adicione suas contas no formato:
+
+```
+usuario1@email.com:senha1
+usuario2@email.com:senha2
+12345678900:senhasecreta
+```
+
+---
+
+### 4️⃣ Execute o script
+
+Com o Chrome em CDP já aberto, execute:
 
 ```bash
 node natura_multi.js
 ```
 
-5. Os resultados aparecerão em `resultados.txt`.
+O script vai:
+✅ Abrir o portal  
+✅ Capturar a URL de login com tokens válidos  
+✅ Preencher login e senha  
+✅ Enviar formulário e aguardar  
+✅ Imprimir no terminal as capturas, cookies e status final
 
 ---
 
-## 📦 Exemplo de saída
+## 📝 Notas
 
-```
-✅ macaco@email.com | Nome: Thomas Turbano | Saldo: R$ 120,00 | Endereço: Rua das Flores, 123
-❌ 123.456.789-00 | Falha no login
-⚠️ usuario@email.com | Erro: Navigation timeout
-```
+⚠️ Cada conta é testada separadamente em uma nova aba do navegador.  
+⚠️ Se a rede ou o servidor bloquear requisições para `/auth_cred_submit`, o login não será completado.  
+⚠️ Se necessário, edite o script para ajustar os `delays` para a sua velocidade de rede.
 
 ---
 
-## 🔐 Segurança
+## 🛠 Solução de problemas
 
-- O script simula interação humana (mouse, delays, navegação real)
-- Captura dinâmica de tokens (`bmctx`, `request_id`) para evitar bloqueios
+🔷 **Erro: `ECONNREFUSED ::1:9222`**
+- Verifique se o Chrome está aberto com o `.bat`
+- Verifique se o link [http://127.0.0.1:9222/json](http://127.0.0.1:9222/json) responde
+
+🔷 **Erro: `ERR_HTTP2_PROTOCOL_ERROR`**
+- Pode indicar problema na conta ou bloqueio da rede/servidor
+
+🔷 **Outro erro?**
+- Rode novamente com `headless: false` (já está por padrão) para observar o comportamento no navegador
 
 ---
 
-## 📌 Futuras melhorias (opcional)
+## 📄 Licença
 
-- Integração com bot Telegram
-- Suporte a proxies e 2Captcha
-- Exportação para `.json` ou Google Sheets
-
----
-
-## 🧑‍💻 Autor
-
-Desenvolvido por Senhor Destino  
-Contato: https://t.me/senhordestinoofc
+MIT — Este projeto é apenas para fins educacionais.  
+**Não é afiliado à Natura.**
